@@ -2,6 +2,8 @@
 
 This is a work in progress compiling my most used ImageMagick commands that extend and enhance the mapmaking process.
 
+<img src="images/newyork_test_523_resized.png"/>
+
 Use `gdalwarp` to convert geotiff to regular tiff for use with imagemagick.
  
 ```gdalwarp -overwrite -dstalpha --config GDAL_PAM_ENABLED NO -co PROFILE=BASELINE layer_geo.tif layer_regular.tif```
