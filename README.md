@@ -21,9 +21,10 @@ Crop image.
 
 Crop image by percentage.
 
-```convert -background None $frame -crop 50%x100% +repage layer0_crop.png```
+```convert layer0.png -crop 50%x100% +repage layer0_half.png```
 
-convert -background None $frame -crop 100%x2% +repage ${frame%.*}_%d.png
+Append 
+
 
 Composite cloud cover image over Natural Earth image.
 
@@ -35,14 +36,12 @@ Composite and adjust levels of each image in one command.
 
 <img src="images/frame.jpg"/>
 
-Add a sketch effect with a canny edge detection layer.
-
+Add a sketch effect with a canny edge detection layer.  
 ```convert layer0.png \( +clone -modulate 200 -canny 0x1+10%+20% -negate \) -compose multiply -composite layer0_canny.png```
 
 <img src="images/layer0_canny.jpg"/>
 
-Change the prime meridian to 90* W.
-
+Change the prime meridian 180*.  
 ```convert layer0_canny.png -roll +960 layer0_roll960.png```
 
 <img src="images/layer0_roll960.jpg"/>
