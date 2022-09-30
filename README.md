@@ -31,11 +31,14 @@ Resize, adjust levels and composite rasters (with background canvas) in one comm
 <img src="images/layer1_levels.jpg"/>
 <img src="images/frame.jpg"/>
 
-Add a sketch effect with a canny edge detection layer.
+Add a sketch effect with a canny edge detection layer with or without the original image.
 
-```convert frame.png -level 50%,100% \( +clone -modulate 200 -canny 0x0+10%+10% -negate \) -compose multiply -composite frame_canny.png```
+```convert frame.png -modulate 200 -canny 0x0+10%+10% -negate frame_canny.png```
+
+```convert frame.png \( +clone -modulate 200 -canny 0x0+10%+10% -negate \) -compose multiply -composite frame_plus_canny.png```
 
 <img src="images/frame_canny.jpg"/>
+<img src="images/frame_plus_canny.jpg"/>
 
 Make a gif from a folder of files.
 
