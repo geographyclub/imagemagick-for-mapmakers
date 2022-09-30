@@ -27,7 +27,7 @@ Adjust levels to enhance colors of Natural Earth's hypsometric raster.
 <img src="images/layer0.jpg"/>
 <img src="images/layer0_levels.jpg"/>
 
-Composite cloud cover raster over Natural Earth raster using `over` blend mode.
+Composite cloud cover raster over Natural Earth raster.
 
 ```convert layer0.tif layer1.tif -gravity center -compose over -composite layer_composite.tif```
 
@@ -35,17 +35,12 @@ Resize, adjust levels and composite rasters (with background canvas) in one comm
 
 ```convert -size 480x270 xc:none \( layer0.tif -resize 25% -level 50%,100% \) -gravity center -compose over -composite \( layer1.tif -resize 25% -level 50%,100% \) -gravity center -compose over -composite layer_composite.tif```
 
-<img src="images/layer0_levels.jpg"/>
-<img src="images/layer1_levels.jpg"/>
 <img src="images/frame.jpg"/>
 
-Add a sketch effect with a canny edge detection layer with or without the original image.
+Add a sketch effect with a canny edge detection layer.
 
-```convert layer0.png -level 50%,100% -modulate 200 -canny 0x0+5%+30% -negate layer0_canny.png```
+```convert layer0.png -level 50%,100% \( +clone -modulate 200 -canny 0x0+5%+30% -negate \) -compose multiply -composite layer0_canny.png```
 
-```convert layer0.png -level 50%,100% \( +clone -modulate 200 -canny 0x0+5%+30% -negate \) -compose multiply -composite layer0_plus_canny.png```
-
-<img src="images/layer0_canny.jpg"/>
 <img src="images/layer0_plus_canny.jpg"/>
 
 Make a gif from a folder of files.
