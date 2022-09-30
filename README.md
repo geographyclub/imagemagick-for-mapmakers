@@ -41,7 +41,7 @@ Add a sketch effect with a canny edge detection layer.
 
 ```convert layer0.png -level 50%,100% \( +clone -modulate 200 -canny 0x0+5%+30% -negate \) -compose multiply -composite layer0_canny.png```
 
-<img src="images/layer0_plus_canny.jpg"/>
+<img src="images/layer0_canny.jpg"/>
 
 Make a gif from a folder of files.
 
