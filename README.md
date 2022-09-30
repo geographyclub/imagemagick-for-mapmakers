@@ -28,7 +28,7 @@ Resize, adjust levels and composite rasters (with background canvas) in one comm
 ```convert -size ${width_frame}x${height_frame} xc:none \( layer0.tif -resize ${resize}% -level 50%,100% \) -gravity center -compose over -composite \( layer1.tif -resize ${resize}% -level 50%,100% \) -gravity center -compose over -composite layer_composite.tif```
 
 <img src="images/layer0_levels.jpg"/>
-<img src="images/layer1.jpg"/>
+<img src="images/layer1_levels.jpg"/>
 <img src="images/frame.jpg"/>
 
 Add a sketch effect with a canny edge detection layer.
