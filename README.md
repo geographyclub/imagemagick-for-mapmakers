@@ -10,7 +10,15 @@ Use `gdalwarp` to convert geotiff to regular tiff for use with imagemagick.
 
 Crop image.
 
-```convert -gravity center largeprint_kdp-page077.png -crop 1940x600+0+0 +repage largeprint_kdp-page077_1940x600.png```
+```convert largeprint_kdp-page077.png -gravity center -crop 1940x600+0+0 +repage largeprint_kdp-page077_1940x600.png```
+
+Crop image while maintaining aspect ratio with `geometry` option.
+
+```convert largeprint_kdp-page077.png -gravity center -geometry 1940x600^ -crop 1940x600+0+0 +repage largeprint_kdp-page077_1940x600.png```
+
+Resize all image files.
+
+```ls *.png | while read file; do convert -resize 25% ${file} ${file%.*}.jpg; done```
 
 Adjust levels to enhance colors of Natural Earth's hypsometric raster.
 
@@ -33,16 +41,12 @@ Resize, adjust levels and composite rasters (with background canvas) in one comm
 
 Add a sketch effect with a canny edge detection layer with or without the original image.
 
-```convert layer0.png -level 50%,100% -modulate 200 -canny 0x0+10%+10% -negate layer0_canny.png```
+```convert layer0.png -level 50%,100% -modulate 200 -canny 0x0+5%+30% -negate layer0_canny.png```
 
-```convert layer0.png -level 50%,100% \( +clone -modulate 200 -canny 0x0+10%+10% -negate \) -compose multiply -composite layer0_plus_canny.png```
+```convert layer0.png -level 50%,100% \( +clone -modulate 200 -canny 0x0+5%+30% -negate \) -compose multiply -composite layer0_plus_canny.png```
 
 <img src="images/layer0_canny.jpg"/>
 <img src="images/layer0_plus_canny.jpg"/>
-
-Resize all image files.
-
-```ls *.png | while read file; do convert -resize 25% ${file} ${file%.*}.jpg; done```
 
 Make a gif from a folder of files.
 
