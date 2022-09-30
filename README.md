@@ -54,12 +54,7 @@ Apply a 45* arc projection rotated 180*.
 
 <img src="images/layer0_arc_45_180.jpg"/>
 
-Apply a 360* arc projection.  
-```convert -size 1920x1080 xc:none \( layer0.png -virtual-pixel none -resize 50% -distort Arc '360' \) -gravity center -compose over -composite layer0_arc_360.png```
-
-<img src="images/layer0_arc_360.jpg"/>
-
-Apply a donut projection.  
+Apply a polar projection.  
 ```convert -size 1920x1080 xc:none \( layer0.png -virtual-pixel none -resize 50% -distort Polar '0' \) -gravity center -compose over -composite layer0_polar_0.png```
 
 <img src="images/layer0_polar_0.jpg"/>
