@@ -33,12 +33,12 @@ Resize, adjust levels and composite rasters (with background canvas) in one comm
 
 Add a sketch effect with a canny edge detection layer with or without the original image.
 
-```convert frame.png -modulate 200 -canny 0x0+10%+10% -negate frame_canny.png```
+```convert layer0.png -level 50%,100% -modulate 200 -canny 0x0+10%+10% -negate layer0_canny.png```
 
-```convert frame.png \( +clone -modulate 200 -canny 0x0+10%+10% -negate \) -compose multiply -composite frame_plus_canny.png```
+```convert layer0.png -level 50%,100% \( +clone -modulate 200 -canny 0x0+10%+10% -negate \) -compose multiply -composite layer0_plus_canny.png```
 
-<img src="images/frame_canny.jpg"/>
-<img src="images/frame_plus_canny.jpg"/>
+<img src="images/layer0_canny.jpg"/>
+<img src="images/layer0_plus_canny.jpg"/>
 
 Resize all image files.
 
