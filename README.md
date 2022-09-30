@@ -40,6 +40,10 @@ Add a sketch effect with a canny edge detection layer with or without the origin
 <img src="images/frame_canny.jpg"/>
 <img src="images/frame_plus_canny.jpg"/>
 
+Resize all image files.
+
+```ls *.png | while read file; do convert -resize 25% ${file} ${file%.*}.jpg; done```
+
 Make a gif from a folder of files.
 
 ```convert -delay 60 $PWD/*.png $(basename $PWD).gif```
