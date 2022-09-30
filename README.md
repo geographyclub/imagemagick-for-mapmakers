@@ -1,6 +1,6 @@
 # ImageMagick for Mapmakers
 
-This is an ongoing project to compile the choicest ImageMagick commands I've used over the years to extend and enhance my mapmaking. I hope you'll find some of them useful in your work.
+This is an ongoing project to compile the choicest ImageMagick commands I've used over the years to extend and enhance my mapmaking.
 
 <img src="images/newyork.jpg"/>
 
@@ -16,13 +16,15 @@ Resize all png files by 25% and save as jpg. These will be our example thumbnail
 ```ls *.png | while read file; do convert -resize 25% ${file} ${file%.*}.jpg; done```
 
 Crop image.  
-```convert layer0.png -gravity center -geometry 1940x600^ -crop 1940x600+0+0 +repage layer0_crop.png```
+```convert layer0.png -gravity center -crop 960x540+0+0 +repage layer0_crop.png```
 
-Crop image by percentage.  
-```convert layer0.png -crop 50%x100% +repage layer0_half.png```
+Crop image by percentage and save parts.  
+```convert layer0.png -crop 100%x50% +repage layer0_part.png```
 
-Append 
+Append images in reverse order.  
+```convert $(ls -r layer0_part-*.png) -append layer0_append.png```
 
+<img src="images/layer0_appended.jpg"/>
 
 Composite cloud cover image over Natural Earth image.  
 ```convert layer0.png layer1.png -gravity center -compose over -composite frame.png```
@@ -38,9 +40,9 @@ Add a sketch effect with a canny edge detection layer.
 <img src="images/layer0_canny.jpg"/>
 
 Change the prime meridian 180*.  
-```convert layer0_canny.png -roll +960 layer0_roll960.png```
+```convert layer0.png -roll +960 layer0_roll.png```
 
-<img src="images/layer0_roll960.jpg"/>
+<img src="images/layer0_roll.jpg"/>
 
 Make a gif from a folder of files.  
 ```convert -delay 60 $PWD/*.png $(basename $PWD).gif```
