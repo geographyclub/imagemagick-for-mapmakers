@@ -16,6 +16,9 @@ Adjust levels to enhance colors of Natural Earth's hypsometric raster.
 
 ```convert HYP_HR_SR_OB_DR.tif -level 50%,100% HYP_HR_SR_OB_DR_levels.tif```
 
+<img src="images/layer0.jpg"/>
+<img src="images/layer0_levels.jpg"/>
+
 Composite cloud cover raster over Natural Earth raster using `over` blend mode.
 
 ```convert layer0.tif layer1.tif -gravity center -compose over -composite layer_composite.tif```
