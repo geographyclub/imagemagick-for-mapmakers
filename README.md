@@ -25,7 +25,7 @@ Composite cloud cover raster over Natural Earth raster using `over` blend mode.
 
 Resize, adjust levels and composite rasters (with background canvas) in one command.
 
-```convert -size ${width_frame}x${height_frame} xc:none \( layer0.tif -resize ${resize}% -level 50%,100% \) -gravity center -compose over -composite \( layer1.tif -resize ${resize}% -level 50%,100% \) -gravity center -compose over -composite layer_composite.tif```
+```convert -size 480x270 xc:none \( layer0.tif -resize 25% -level 50%,100% \) -gravity center -compose over -composite \( layer1.tif -resize 25% -level 50%,100% \) -gravity center -compose over -composite layer_composite.tif```
 
 <img src="images/layer0_levels.jpg"/>
 <img src="images/layer1_levels.jpg"/>
@@ -33,7 +33,9 @@ Resize, adjust levels and composite rasters (with background canvas) in one comm
 
 Add a sketch effect with a canny edge detection layer.
 
-```convert HYP_HR_SR_OB_DR.tif -level 50%,100% \( +clone -modulate 200 -canny 0x0+10%+10% -negate \) -compose multiply -composite HYP_HR_SR_OB_DR_canny.png```
+```convert frame.png -level 50%,100% \( +clone -modulate 200 -canny 0x0+10%+10% -negate \) -compose multiply -composite frame_canny.png```
+
+<img src="images/frame_canny.jpg"/>
 
 Make a gif from a folder of files.
 
