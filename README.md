@@ -2,7 +2,7 @@
 
 This is a work in progress compiling my most used ImageMagick commands that extend and enhance the mapmaking process.
 
-<img src="images/newyork_test.jpg"/>
+<img src="images/newyork.jpg"/>
 
 Use `gdalwarp` to convert geotiff to regular tiff for use with imagemagick.
  
@@ -26,6 +26,10 @@ Composite cloud cover raster over Natural Earth raster using `over` blend mode.
 Resize, adjust levels and composite rasters (with background canvas) in one command.
 
 ```convert -size ${width_frame}x${height_frame} xc:none \( layer0.tif -resize ${resize}% -level 50%,100% \) -gravity center -compose over -composite \( layer1.tif -resize ${resize}% -level 50%,100% \) -gravity center -compose over -composite layer_composite.tif```
+
+<img src="images/layer0_levels.jpg"/>
+<img src="images/layer1.jpg"/>
+<img src="images/frame.jpg"/>
 
 Add a sketch effect with a canny edge detection layer.
 
