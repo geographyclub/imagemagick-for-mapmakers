@@ -2,7 +2,7 @@
 
 This is a work in progress compiling my most used ImageMagick commands that extend and enhance the mapmaking process.
 
-<img src="images/newyork_test_523_resized.png"/>
+<img src="images/newyork_test.jpg"/>
 
 Use `gdalwarp` to convert geotiff to regular tiff for use with imagemagick.
  
