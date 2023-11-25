@@ -2,8 +2,6 @@
 
 Use ImageMagick to create, edit, compose or convert digital images. This is a growing list of my most used ImageMagick commands that extend and enhance mapmaking.
 
-<img src="images/newyork.jpg"/>
-
 ## The Magick
 
 Adjust levels to enhance colors of Natural Earth's hypsometric image. This will be our example image.  
