@@ -54,7 +54,7 @@ file='ne_50m_land.png'
 convert "${file}" -gravity center -geometry 1920x1080^ -crop 1920x1080+0+0 "${file%.*}_1920_1080.png"
 ```
 
-Split image by percentage and save parts.  
+Split image into parts.  
 ```shell
 convert hyp.png -crop 25%x100% +repage hyp_part.png
 ```
@@ -69,8 +69,6 @@ file1='Nick Mag #0 - Premiere 1990_0021.jpg'
 file2='Nick Mag #0 - Premiere 1990_0022.jpg'
 convert "${file1}" "${file2}" -gravity Center +append -resize 960x +repage ~/archive-mag/archive/"${file1%.*}.png"
 ```
-
-
 
 ### Effects
 
@@ -134,13 +132,15 @@ ls *.svg | while read file; do convert ${file} ~/tmp/${file%.*}.png; done
 convert -delay 60 ~/tmp/*.png $(basename $PWD).gif
 ```
 
-Loop gif.  
+Loop gif nicely.  
 ```shell
 convert shift_primemeridian_1920_1080.gif -coalesce -duplicate 1,-2-1 -quiet -layers OptimizePlus -loop 0 shift_primemeridian_1920_1080_loop.gif
 ```
 
 Convert video to gif.  
 ```shell
+convert weather_03_17_170534.mp4 -coalesce -layers OptimizePlus weather_03_17_170534.gif
+
 file='Mazola.ia.mp4'
 ffmpeg -y -i "$file" -r 10 -vf "fps=10,crop=in_w-50:in_h-50,scale=960:-1,setpts=PTS-STARTPTS" ~/archive-mag/archive/"${file%.*}.gif"
 ```
