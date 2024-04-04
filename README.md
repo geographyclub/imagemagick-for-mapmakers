@@ -17,6 +17,9 @@ convert shift_primemeridian_281_04_21_185611.gif -resize 1920x1080\! shift_prime
 # resize by width.  
 file='Esquire-Magazine-1990-05_0018.jpg'
 convert "${file}" -gravity Center -resize 1920x\> +repage "${file%.*}.png"
+
+# pixelate
+convert chicago.png -scale 10% -filter point -scale 1000% chicago_pixelated.png
 ```
 
 Change extent  
@@ -85,6 +88,13 @@ convert -modulate 150,120,100 block_us.png block_us_modulated.png
 Add a sketch effect with a canny edge detection layer  
 ```shell
 convert hyp.png \( +clone -modulate 200 -canny 0x1+5%+20% -negate \) -gravity center -compose multiply -composite hyp_canny.png
+```
+
+Fill color for all files in directory  
+```shell
+for png_file in *.png; do
+  convert "$png_file" -fill "#5F9EA0" -colorize 100% ../"${png_file}"
+done
 ```
 
 ### Composite
