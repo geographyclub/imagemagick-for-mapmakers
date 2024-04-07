@@ -50,6 +50,14 @@ convert "${file}" -gravity center -geometry 1920x1080^ -crop 1920x1080+0+0 "${fi
 Split image into parts  
 ```shell
 convert hyp.png -crop 25%x100% +repage hyp_part.png
+
+# halve
+convert /home/steve/Downloads/toronto4.png -crop 50%x100% /home/steve/Downloads/toronto4_split.png
+
+# directory
+ls /home/steve/Downloads/tmp/*a.svg | while read frame; do
+  convert -background None $frame -crop 100%x2% +repage ${frame%.*}_%d.png
+done
 ```
 
 Append  
@@ -61,6 +69,20 @@ convert $(ls -r hyp_part-*.png) -flop +append hyp_append.png
 file1='Nick Mag #0 - Premiere 1990_0021.jpg'
 file2='Nick Mag #0 - Premiere 1990_0022.jpg'
 convert "${file1}" "${file2}" -gravity Center +append -resize 960x +repage ~/archive-mag/archive/"${file1%.*}.png"
+```
+
+Split then append with glitch  
+```shell
+signs=(+ -)
+ls /home/steve/Downloads/tmp/frame_*.png | while read frame; do
+  convert -roll ${signs[$[ ( $RANDOM % 2 ) ]]}`shuf -i 0-20 -n 1`+0 $frame ${frame%.*}_roll.png
+done
+
+ls /home/steve/Downloads/tmp/*a.svg | while read frame; do
+  convert -background None `ls -v ${frame%.*}_*_roll.png` -append ${frame%.*}.png
+done
+rm -f /home/steve/Downloads/tmp/*roll.png
+rm -f /home/steve/Downloads/tmp/*[0-9].png
 ```
 
 ### Colors & Effects
@@ -75,7 +97,7 @@ Reduce the number of colors
 onvert manhattan.png -colors 4 manhattan_color4.png
 ```
 
-Adjust image levels  
+Adjust black & white point
 ```shell
 convert HYP_HR_SR_OB_DR.png -level 50%,100% hyp.png
 ```
@@ -94,6 +116,16 @@ Fill color for all files in directory
 ```shell
 for png_file in *.png; do
   convert "$png_file" -fill "#5F9EA0" -colorize 100% ../"${png_file}"
+done
+```
+
+Dilate  
+```shell
+convert /home/steve/Downloads/test.jpg -morphology Dilate Diamond:1 /home/steve/Downloads/test_dilate.jpg
+convert -virtual-pixel None /home/steve/Downloads/test_dilate.jpg -rotate 180 -distort Arc '45 180' /home/steve/Downloads/test_distort.jpg
+
+ls /home/steve/maps/biomes/boreal/5m/*.jpg | while read file; do
+  convert "$file" -morphology Dilate Diamond:1  "${file%.*}_dilate.jpg"
 done
 ```
 
@@ -127,11 +159,6 @@ montage /home/steve/qgis-expressions/screens/20240307001511.png  -gravity center
 montage $(ls *.png | shuf -n 15) -gravity center -crop 384x384+0+0 -geometry +0+0 -tile 5x3 output.png
 ```
 
-Make a gif from a folder of files  
-```shell
-convert -delay 60 $PWD/*.png $(basename $PWD).gif
-```
-
 ### Distort
 
 Change the prime meridian 180*  
@@ -155,11 +182,31 @@ convert -size 1920x1080 xc:none \( hyp.png -virtual-pixel none -resize 50% -dist
 
 ### Animate
 
-Make gif from svgs in a directory  
+Make a gif from directory  
+```shell
+convert -delay 60 $PWD/*.png $(basename $PWD).gif
+
+# hillshade animation (with resize)
+convert -resize 25% -delay 60 *hillshade_zfactor*.tif topo15_4u320_hillshade_zfactor.gif
+```
+
+Make gif from svgs    
 ```shell
 rm -rf ~/tmp/*
 ls *.svg | while read file; do convert ${file} ~/tmp/${file%.*}.png; done
 convert -delay 60 ~/tmp/*.png $(basename $PWD).gif
+```
+
+Make terrain animations  
+```shell
+# hillshade zfactor
+sorted_files=$(ls -v *hillshade_zfactor*.tif)
+convert -resize 25% -delay 24 ${sorted_files} -coalesce -quiet -layers OptimizePlus -loop 0 -level 50%,100% topo15_4320_hillshade_zfactor.gif
+
+# hillshade azimuth
+sorted_files=$(ls -v *hillshade_azimuth*.tif)
+convert -resize 400x -delay 12 ${sorted_files} -coalesce -quiet -layers OptimizePlus -loop 0 topo15_4320_hillshade_azimuth.gif
+
 ```
 
 Loop gif nicely  
@@ -188,7 +235,4 @@ sudo vim /etc/ImageMagick-6/policy.xml
 <policy domain="resource" name="disk" value="8GB"/>
 ```
 
-TO DO:
-
-adding text captions...
 
