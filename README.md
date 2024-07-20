@@ -109,7 +109,10 @@ convert -modulate 150,120,100 block_us.png block_us_modulated.png
 
 Add a sketch effect with a canny edge detection layer  
 ```shell
-convert hyp.png \( +clone -modulate 200 -canny 0x1+5%+20% -negate \) -gravity center -compose multiply -composite hyp_canny.png
+convert hyp.png \( +clone -modulate 150 -canny 0x1+5%+20% -negate \) -gravity center -compose multiply -composite hyp_canny.png
+
+# hydroatlas
+convert guiana.png \( +clone -modulate 120 -canny 0x5+15%+20% -negate \) -gravity center -compose multiply -composite -level 20%,100% guiana_canny.png
 ```
 
 Fill color for all files in directory  
@@ -117,6 +120,11 @@ Fill color for all files in directory
 for png_file in *.png; do
   convert "$png_file" -fill "#5F9EA0" -colorize 100% ../"${png_file}"
 done
+```
+
+Add color overlay  
+```shell
+convert toronto_buildings.png \( -clone 0 -fill "#A6CEE3" -colorize 100% \) -compose Multiply -composite toronto_buildings_blue.png
 ```
 
 Dilate  
@@ -206,7 +214,6 @@ convert -resize 25% -delay 24 ${sorted_files} -coalesce -quiet -layers OptimizeP
 # hillshade azimuth
 sorted_files=$(ls -v *hillshade_azimuth*.tif)
 convert -resize 400x -delay 12 ${sorted_files} -coalesce -quiet -layers OptimizePlus -loop 0 topo15_4320_hillshade_azimuth.gif
-
 ```
 
 Loop gif nicely  
@@ -225,6 +232,18 @@ ffmpeg -y -i "$file" -r 10 -vf "fps=10,crop=in_w-50:in_h-50,scale=960:-1,setpts=
 Extract frame  
 ```shell
 convert input.gif[$selected_frame] output_frame.png
+```
+
+### Captions
+
+Fit multiline text to canvas  
+```
+lines=("AI NEEDS YOU" "TO HYPE IT UP MORE")
+for i in "${!lines[@]}"; do
+  line=${lines[$i]}  # Use correct variable name 'lines' instead of 'LINES'
+  convert -gravity center -size 400x -font '/home/steve/.fonts/ofl/bebasneue/BebasNeue-Regular.ttf' label:"${line}" -trim +repage ~/tmp/line_$i.png
+done
+convert ~/tmp/line_*.png -append label.png
 ```
 
 ### Misc
